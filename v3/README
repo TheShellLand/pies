@@ -1,0 +1,17 @@
+# Python 3.4 Simple Tips and Tricks
+
+So you're using python, congrats! What now? Keep reading.
+
+Hopefully you have some background in how programming works (shell scripting, variables, functions, arrays). If you do,
+then great! If you don't, then open this link: http://lmgtfy.com/?q=python+101
+
+Here's an on-going list of random things about python that helped clarify things
+
+- Do you use ' or " ?
+    You can use either one! But a single-quote is the norm
+- How do I "run" my python program?
+    Define a variable called "main" and add this
+    if __name__ == "__main__":
+    main()
+- Data attributes, which are variables owned by a specific instance of a class
+- Class attributes, which are variables owned by the class itself
