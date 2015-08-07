@@ -2,7 +2,6 @@ import os, subprocess
 
 
 
-
 def interfaces():
     iwconfig = subprocess.call('iwconfig')
 
