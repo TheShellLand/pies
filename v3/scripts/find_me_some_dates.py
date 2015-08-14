@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 # -*- coding: utf8 -*-
 
-import ssl, urllib, urllib.request, re, collections, pprint
+import ssl, urllib.request, re, collections, pprint
 
 
 def request():
@@ -23,6 +23,8 @@ def find_me_some_dates(url):
 	pprint.pprint(collections.Counter(match))
 	#pprint.pprint(collections.Counter(match2))
 
-find_me_some_dates(input('URL: '))
 
-input()
+
+if __name__ == "__main__":
+        find_me_some_dates(input(r'URL: '))
+        input()
