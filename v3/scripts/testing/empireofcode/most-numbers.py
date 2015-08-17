@@ -2,7 +2,7 @@ def most_difference(*args):
     print(args)
     if len(args) == 0:
         return 0
-    round(max(args) - min(args),4)
+    return round(max(args) - min(args), 4)
 
 
 if __name__ == '__main__':
