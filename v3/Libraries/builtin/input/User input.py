@@ -1,1 +1,1 @@
-package = input("Type in a package: ")
+package = input('Type in a package: ')
