@@ -28,23 +28,17 @@ To exclude all characters after this first control character just add a .*, like
 
 import re
 import sys
+import os
+
 
 def hex_cleanup(*args):
-    with open(sys.argv[1], 'r') as my_file:
-        print(my_file.read())
+    f, ext = os.path.splitext(sys.argv[1])
+    f = open(f + '-cleaned' + ext, 'w')
+    with open(sys.argv[1], 'r') as source_file:
+        for line in source_file:
+            re.sub(r'[^\xa0]', '', line)
+            f.write(line)
 
-
-filenames = ['file1.txt', 'file2.txt', ...]
-with open('path/to/output/file', 'w') as outfile:
-    for fname in filenames:
-        with open(fname) as infile:
-            for line in infile:
-                outfile.write(line)
-
-
-
-with open(sys.argv[1], 'r') as my_file:
-    print(my_file.read())
 
 
 
