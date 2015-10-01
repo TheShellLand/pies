@@ -32,15 +32,24 @@ import os
 
 
 def hex_cleanup(*args):
-    f, ext = os.path.splitext(sys.argv[1])
-    f = open(f + '-cleaned' + ext, 'w')
-    with open(sys.argv[1], 'r') as source_file:
-        for line in source_file:
-            re.sub(r'[^\xa0]', '', line)
-            f.write(line)
+    if len(sys.argv) == 1:
+        print('No arguments, exiting')
+        return None
+    else:
+        print('[*] Input file: ' + sys.argv[1])
+        f, ext = os.path.splitext(sys.argv[1])
+        print('[*] Output file: ' + f + '-cleaned' + ext + '\n\n')
+        f = open(f + '-cleaned' + ext, 'w')
+        with open(sys.argv[1], 'r') as source_file:
+            for line in source_file:
+                print('Line: ' + line)
+                cleaned = re.sub(r'\xa0', ' ', line)
+                print('Cleaned: ' + cleaned)
+                f.write(cleaned)
+        print('[*] Done')
 
 
 
 
 if __name__ == "__main__":
-    hex_cleanup(*args)
+    hex_cleanup()
