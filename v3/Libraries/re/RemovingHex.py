@@ -31,19 +31,20 @@ import sys
 import os
 
 
+
 def hex_cleanup(*args):
     if len(sys.argv) == 1:
-        print('No arguments, exiting')
+        print('[>] No arguments, exiting')
         return None
     else:
         print('[*] Input file: ' + sys.argv[1])
         f, ext = os.path.splitext(sys.argv[1])
-        print('[*] Output file: ' + f + '-cleaned' + ext + '\n\n')
+        print('[*] Output file: ' + f + '-cleaned' + ext + '\n')
         f = open(f + '-cleaned' + ext, 'w')
         with open(sys.argv[1], 'r') as source_file:
             for line in source_file:
                 #print('Line: ' + line)
-                cleaned = re.sub(r'[\xa0\x0d]', ' ', line)
+                cleaned = re.sub(r'[\xa0\x0d\xca,]', ' ', line)
                 #print('Cleaned: ' + cleaned)
                 f.write(cleaned)
                 print('[*] Cleaned ' + sys.argv[1])
