@@ -43,15 +43,15 @@ def hex_cleanup(*args):
         f = open(f + '-cleaned' + ext, 'w')
         with open(sys.argv[1], 'r') as source_file:
             for line in source_file:
-                #print('Line: ' + line)
-                cleaned = re.sub(r'[\xa0\x0d\xca,]', ' ', line)
-                #print('Cleaned: ' + cleaned)
+                print('[*] Line: ' + line)
+                cleaned = re.sub(r'[\xa0\x0d\xca]', ' ', line)
+                print('[*] Cleaned: ' + cleaned)
                 f.write(cleaned)
-                print('[*] Cleaned ' + sys.argv[1])
-        print('[*] Done')
+                #print('[*] Cleaned ' + sys.argv[1])
 
 
 
 
 if __name__ == "__main__":
+    #print("[*] Current Directory: " + os.getcwd())
     hex_cleanup()
