@@ -1,7 +1,5 @@
 import argparse
 
-import argparse
-
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-s', action='store', dest='simple_value',
@@ -34,8 +32,8 @@ parser.add_argument('-B', action='append_const', dest='const_collection',
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 results = parser.parse_args()
-print 'simple_value     =', results.simple_value
-print 'constant_value   =', results.constant_value
-print 'boolean_switch   =', results.boolean_switch
-print 'collection       =', results.collection
-print 'const_collection =', results.const_collection
+print('simple_value     =', results.simple_value)
+print('constant_value   =', results.constant_value)
+print('boolean_switch   =', results.boolean_switch)
+print('collection       =', results.collection)
+print('const_collection =', results.const_collection)
