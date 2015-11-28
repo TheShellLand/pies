@@ -1,4 +1,5 @@
 import pip
+from subprocess import call
 
 
 def install(package):
@@ -9,6 +10,11 @@ def uninstall(package):
     print('Uninstalling... ' + package)
     pip.main(['uninstall', package])
 
+def upgrade():
+    print('Upgrading... pip')
+    call(['python', '-m', 'pip', 'install', '--upgrade', 'pip'])
+
+
 def main():
     while True:
         package = input('Type in a package: ')
@@ -17,7 +23,7 @@ def main():
             break
 
     while True:
-        print('1. Install\n' + '2. Uninstall')
+        print('1. Install\n' + '2. Uninstall\n' + '\n' + '3. Upgarde pip')
         action = input('Choose an option: ').__str__()
         #print('length: ' + len(action).__str__())
 
@@ -33,6 +39,12 @@ def main():
         elif int(action) == 2:
             try:
                 uninstall(package)
+            finally:
+                break
+
+        elif int(action) == 3:
+            try:
+                upgrade()
             finally:
                 break
 
