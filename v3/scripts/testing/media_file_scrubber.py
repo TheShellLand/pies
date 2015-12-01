@@ -42,6 +42,7 @@ def walking():
 
 
 # strings
+'''
 U2FsdGVkX1+h2WCo6BySA6lOFkyYeOp6zndtLw25Z8HjJ/Rk1y5Mc3XT8d5zW9wZ
 6utKcxKGUdEYxrfwZPFAtEMgo3pc+vgEh9eETb53TETikm/9ZJmYkMn8Ra+ttiHI
 xDEY+NLB/nzrWgc3XhrmOYh8EXTtFq8xAqVPghFvFMigCfYlkNlZ4PszbDXQ3Rgi
@@ -54,6 +55,8 @@ fI+IOAjyILDUeQrN8fVvW2kHhQwonpNUjQm8BEmS+9caiJN77ol1M421mFZVU6l7
 cOUO8KSMuxFTuuNN2Sz4GdLmK/1ZxeDSPLOGFfZukgrIcHogDO1c7H9w8yipNrLf
 XVyXtJ/itliznhTJActaDfpbM/C07J4yNqkaQ3iCHOBL03yNUAGQDmhn+xC53TtU
 eadXpSqX6dN7r9ySdLuXow==
+'''
+
 
 # Clean folder names
 def cleaner():
@@ -64,7 +67,7 @@ def cleaner():
     }
 
     for p in patterns:
-        re.sub(p, )
+        re.sub(p, ) # Needs finishing
 
 
 # Really simple encryption
