@@ -40,7 +40,6 @@ def walking():
                     list_file.write(b'\n')
 
 
-
 # strings
 '''
 U2FsdGVkX1+h2WCo6BySA6lOFkyYeOp6zndtLw25Z8HjJ/Rk1y5Mc3XT8d5zW9wZ
