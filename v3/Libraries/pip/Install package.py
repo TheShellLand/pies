@@ -23,7 +23,7 @@ def main():
             break
 
     while True:
-        print('1. Install\n' + '2. Uninstall\n' + '\n' + '3. Upgarde pip')
+        print('1. Install\n' + '2. Uninstall\n' + '\n' + '3. Upgrade pip')
         action = input('Choose an option: ').__str__()
         #print('length: ' + len(action).__str__())
 
