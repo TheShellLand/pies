@@ -1,3 +1,6 @@
+'''
+#!/usr/bin/env python2.7
+
 import array
 import binascii
 
@@ -19,7 +22,7 @@ print fmt % ('A1 hex', 'A1', 'A2 hex', 'A2')
 print fmt % (('-' * 10,) * 4)
 for values in zip(to_hex(a1), a1, to_hex(a2), a2):
     print fmt % values
-
+'''
 
 '''
 $ python array_byteswap.py
@@ -32,3 +35,7 @@ $ python array_byteswap.py
   03000000          3   00000003   50331648
   04000000          4   00000004   67108864
 '''
+
+print('{:10s} {:3d}  {:7.2f}'.format('xxx', 123, 98))
+print('{:10s} {:3d}  {:7.2f}'.format('yyyy', 3, 1.0))
+print('{:10s} {:3d}  {:7.2f}'.format('zz', 42, 123.34))
