@@ -13,3 +13,8 @@ print(json.dumps(chardet.detect(s), indent=4))
     "encoding": "windows-1252",
     "confidence": 0.73
 }
+
+# Select encoding field
+DECODE_CHECK = chardet.detect(BLOCK)
+
+DECODED = BLOCK.decode(DECODE_CHECK['encoding'])
