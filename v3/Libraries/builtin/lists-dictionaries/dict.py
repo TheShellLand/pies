@@ -52,3 +52,11 @@ In [3]: data = json.loads(s)
 
 In [4]: data['A']['B']['unknown']['maindata'][0]['Info']
 Out[4]: u'TEXT'
+
+
+
+
+dict((el,0) for el in a)
+{el:0 for el in a}
+
+
