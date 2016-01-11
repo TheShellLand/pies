@@ -12,9 +12,17 @@ yubikeyPersonalize = 'bin/ykpersonalize.exe'
 ykProfile = '-2'    # choose second profile
 ykKey = '-c' + '00112233'    # 6 bytes hex 00 11 22 33 44 55
 ykPrompt = '-y'     # always commit
+pRange = 4
 
-bruteKeys = [0,0,0,0, 1,1,1,1, 2,2,2,2, 3,3,3,3, 4,4,4,4, 5,5,5,5, 6,6,6,6, 7,7,7,7, 8,8,8,8, 9,9,9,9]  # known values
-#bruteKeys = [0,0,0, 1,1,1, 2,2,2, 3,3,3, 4,4,4, 5,5,5, 6,6,6, 7,7,7, 8,8,8, 9,9,9]  # known values
+
+if pRange == 4:
+    bruteKeys = [0,0,0,0, 1,1,1,1, 2,2,2,2, 3,3,3,3, 4,4,4,4, 5,5,5,5, 6,6,6,6, 7,7,7,7, 8,8,8,8, 9,9,9,9]
+elif pRange == 3:
+    bruteKeys = [0,0,0, 1,1,1, 2,2,2, 3,3,3, 4,4,4, 5,5,5, 6,6,6, 7,7,7, 8,8,8, 9,9,9]
+elif pRange == 2:
+    bruteKeys = [0,0, 1,1, 2,2, 3,3, 4,4, 5,5, 6,6, 7,7, 8,8, 9,9]
+else:
+    bruteKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 totalKeys = 16**6
@@ -42,19 +50,25 @@ def unique(iterable):
 
 
 totalKeys = 0
-#for a in unique(itertools.permutations(bruteKeys, r=3)):
-for a in itertools.permutations(bruteKeys, r=4):
+for a in unique(itertools.permutations(bruteKeys, r=pRange)):
+#for a in itertools.permutations(bruteKeys, r=pRange):
     totalKeys = totalKeys + 1
     bruteKeysCount = totalKeys
 
-#for a in unique(itertools.permutations(bruteKeys, r=3)):
-for a in itertools.permutations(bruteKeys, r=4):    # all permutations of [8,8,8,8] to [0,0,0,0]
+for a in unique(itertools.permutations(bruteKeys, r=pRange)):
+#for a in itertools.permutations(bruteKeys, r=pRange):
     bruteKeysCount = bruteKeysCount - 1
 
-    key1, key2, key3, key4 = a      # convert tuple to int
-    #key1, key2, key3 = a      # convert tuple to int
-    ykKeyGuess = ykKey + str(key1) + str(key2) + str(key3) + str(key4)
-    #ykKeyGuess = ykKey + str(key1) + str(key2) + str(key3) + str('0')
+    if pRange == 4:
+        key1, key2, key3, key4 = a      # convert tuple to int
+        ykKeyGuess = ykKey + str(key1) + str(key2) + str(key3) + str(key4)
+    elif pRange == 3:
+        key1, key2, key3 = a
+        ykKeyGuess = ykKey + str(key1) + str(key2) + str(key3) + str('0')
+    elif pRange == 2:
+        key1, key2 = a
+        ykKeyGuess = ykKey + str(key1) + str(key2) + str('0') + str('0')
+
 
     #call([yubikeyPersonalize, ykProfile, ykKeyGuess, ykPrompt, '-z'])
 
@@ -64,8 +78,10 @@ for a in itertools.permutations(bruteKeys, r=4):    # all permutations of [8,8,8
 
     errEncoding = chardet.detect(err)
     keyFail = re.findall('Yubikey core error: write error', err.decode(errEncoding['encoding']))
+    ykExcept1 = re.findall('Invalid access code string:', err.decode(errEncoding['encoding']))
 
-    if not keyFail:
+    if not keyFail \
+            and not ykExcept1:
         print('Key Found! ', ykKey[2:10], sep='')
         break
     else:
