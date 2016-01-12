@@ -69,7 +69,7 @@ def main():
             print(disk, 'exists on server')
             findCount += 1
     if findCount == diskCount:
-        print('All', findCount, 'disks were found')
+        print('All', findCount, 'out of', diskCount, 'disks were found')
     else:
         print('Only', findCount, 'out of', diskCount, 'disks were found')
 
