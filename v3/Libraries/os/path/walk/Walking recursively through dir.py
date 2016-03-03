@@ -1,4 +1,4 @@
-import os
+media_file_scrubber.pyimport os
 import sys
 
 walk_dir = sys.argv[1]
