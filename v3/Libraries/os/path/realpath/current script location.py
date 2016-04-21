@@ -3,4 +3,4 @@
 
 import os
 
-os.path.realpath(__file__)
+os.path.split(os.path.realpath(__file__))[0]
