@@ -1,9 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
+
 import socket
 import sys
-import thread
+#import thread      # python2.7
+import threading    # python3.5
+
+thread = threading
 
 def main(setup, error):
-    sys.stderr = file(error, 'a')
+    sys.stderr = open(error, 'a')
     for settings in parse(setup):
         thread.start_new_thread(server, settings)
     lock = thread.allocate_lock()
@@ -12,7 +19,7 @@ def main(setup, error):
 
 def parse(setup):
     settings = list()
-    for line in file(setup):
+    for line in file(setup, 'r'):
         parts = line.split()
         settings.append((parts[0], int(parts[1]), int(parts[2])))
     return settings
