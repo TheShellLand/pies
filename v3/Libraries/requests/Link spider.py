@@ -8,6 +8,8 @@ import time, random
 
 if len(sys.argv) > 1:
     url = sys.argv[1]
+else:
+    url = input('Enter URL: ')
 
 
 def get_urls(url):
