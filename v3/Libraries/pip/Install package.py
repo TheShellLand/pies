@@ -2,6 +2,9 @@ import pip
 from subprocess import call
 
 
+python_ver = 'python3'
+
+
 def install(package):
     print('Installing... ' + package)
     pip.main(['install', package])
@@ -12,7 +15,7 @@ def uninstall(package):
 
 def upgrade():
     print('Upgrading... pip')
-    call(['python', '-m', 'pip', 'install', '--upgrade', 'pip'])
+    call([python_ver, '-m', 'pip', 'install', '--upgrade', 'pip'])
 
 
 def main():
