@@ -2,12 +2,14 @@
 # -*- coding: utf8 -*-
 
 
+import sys
 import re
 import chardet
 import time
 import itertools
 import platform
 from subprocess import Popen, PIPE
+
 
 YUBIKEY_PERSONALIZE_WIN = 'win/bin/ykpersonalize.exe'
 YUBIKEY_PERSONALIZE_LINUX = 'linux/ykpers-1.17.2/ykpersonalize'
@@ -21,13 +23,36 @@ if platform.system() == 'Linux':
 else:
     YUBIKEY_PERSONALIZE = YUBIKEY_PERSONALIZE_WIN
 
+
+while True:
+    YK_KEY_INPUT = input('Input known values, if any (input must be integers): ')
+
+    if not YK_KEY_INPUT:
+        print('[*] Skipping input')
+        break
+    elif type(YK_KEY_INPUT) is int:
+        break
+    else:
+        print('[!] Input must be integers')
+
+if len(YK_KEY_INPUT) != 0:
+    ARRAY_RANGE = ARRAY_RANGE - len(YK_KEY_INPUT)
+
+
 TOTAL_KEYS = 10 ** ARRAY_RANGE
+TESTED_KEYS = 0
 
 TIME_START = time.time()
 
 for a in itertools.product(range(10), repeat=ARRAY_RANGE):
 
     TOTAL_KEYS -= 1
+    TESTED_KEYS += 1
+
+    # known partial key inputted
+    if ARRAY_RANGE != 12:
+        pass
+
 
     # convert tuple to int
     if ARRAY_RANGE == 12:
@@ -46,14 +71,14 @@ for a in itertools.product(range(10), repeat=ARRAY_RANGE):
     KEY_FAIL = re.findall('Yubikey core error: write error', err.decode(err_encoding['encoding']))
     YK_EXCEPT_1 = re.findall('Invalid access code string:', err.decode(err_encoding['encoding']))
 
-    if not KEY_FAIL \
-            and not YK_EXCEPT_1:
+    if not KEY_FAIL and not YK_EXCEPT_1:
         # print('Key Found! ', YK_KEY_GUESS[2:10], sep='')
-        print('Key Found! ', YK_KEY_GUESS[2:], sep='')
+        print('\n\tKey Found! ', YK_KEY_GUESS[2:], sep='')
         break
 
     else:
-        print('incorrect key:', YK_KEY_GUESS[2:], '...', 'keys remaining:', TOTAL_KEYS)
+        #print('incorrect key:', YK_KEY_GUESS[2:], '...', 'keys remaining:', TOTAL_KEYS)
+        sys.stdout.write('\rincorrect key: {}  keys remaining: {}  {} keys/second'.format(YK_KEY_GUESS[2:], TOTAL_KEYS, TESTED_KEYS) )
 
         if TOTAL_KEYS is 0:
             TIME_END = time.time()
