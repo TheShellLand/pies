@@ -25,18 +25,24 @@ else:
 
 
 while True:
+    YK_KEY_INPUT = ''
     YK_KEY_INPUT = input('Input known values, if any (input must be integers): ')
+    try:
+        YK_KEY_INPUT = int(YK_KEY_INPUT)
 
-    if not YK_KEY_INPUT:
-        print('[*] Skipping input')
-        break
-    elif type(YK_KEY_INPUT) is int:
-        break
-    else:
-        print('[!] Input must be integers')
+    except:
+        if YK_KEY_INPUT:
+            print('[!] Input must be integers')
 
-if len(YK_KEY_INPUT) != 0:
-    ARRAY_RANGE = ARRAY_RANGE - len(YK_KEY_INPUT)
+    finally:
+        ARRAY_RANGE = ARRAY_RANGE - len(str(YK_KEY_INPUT))
+
+        if type(YK_KEY_INPUT) is int:
+            YK_KEY_INPUT = str(YK_KEY_INPUT)
+            break
+        if not YK_KEY_INPUT:
+            break
+
 
 
 TOTAL_KEYS = 10 ** ARRAY_RANGE
@@ -51,7 +57,7 @@ for a in itertools.product(range(10), repeat=ARRAY_RANGE):
 
     # known partial key inputted
     if ARRAY_RANGE != 12:
-        pass
+        YK_KEY_GUESS = YK_KEY + YK_KEY_INPUT + ''.join(map(str, a))[::-1]
 
 
     # convert tuple to int
@@ -78,7 +84,7 @@ for a in itertools.product(range(10), repeat=ARRAY_RANGE):
 
     else:
         #print('incorrect key:', YK_KEY_GUESS[2:], '...', 'keys remaining:', TOTAL_KEYS)
-        sys.stdout.write('\rincorrect key: {}  keys remaining: {}  {} keys/second'.format(YK_KEY_GUESS[2:], TOTAL_KEYS, TESTED_KEYS) )
+        sys.stdout.write('\rincorrect key: {}  keys remaining: {}  keys failed: {}'.format(YK_KEY_GUESS[2:], TOTAL_KEYS, TESTED_KEYS) )
 
         if TOTAL_KEYS is 0:
             TIME_END = time.time()
