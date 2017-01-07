@@ -24,24 +24,10 @@ else:
     YUBIKEY_PERSONALIZE = YUBIKEY_PERSONALIZE_WIN
 
 
-while True:
-    YK_KEY_INPUT = ''
-    YK_KEY_INPUT = input('Input known values, if any (input must be integers): ')
-    try:
-        YK_KEY_INPUT = int(YK_KEY_INPUT)
+YK_KEY_INPUT = ''
+YK_KEY_INPUT = input('Input known characters, if any: ')
 
-    except:
-        if YK_KEY_INPUT:
-            print('[!] Input must be integers')
-
-    finally:
-        ARRAY_RANGE = ARRAY_RANGE - len(str(YK_KEY_INPUT))
-
-        if type(YK_KEY_INPUT) is int:
-            YK_KEY_INPUT = str(YK_KEY_INPUT)
-            break
-        if not YK_KEY_INPUT:
-            break
+ARRAY_RANGE = ARRAY_RANGE - len(str(YK_KEY_INPUT))
 
 
 
@@ -57,7 +43,11 @@ for a in itertools.product(range(10), repeat=ARRAY_RANGE):
 
     # known partial key inputted
     if ARRAY_RANGE != 12:
+        # numeric
         YK_KEY_GUESS = YK_KEY + YK_KEY_INPUT + ''.join(map(str, a))[::-1]
+
+        # alphanumeric
+
 
 
     # convert tuple to int
@@ -89,7 +79,7 @@ for a in itertools.product(range(10), repeat=ARRAY_RANGE):
         if TOTAL_KEYS is 0:
             TIME_END = time.time()
             print('\n')
-            print('Out of', TOTAL_KEYS, 'keys, none worked')
+            print('Out of', TESTED_KEYS, 'keys, none worked')
             print('\n')
 
             if round((TIME_END - TIME_START) / 60) == 0:
