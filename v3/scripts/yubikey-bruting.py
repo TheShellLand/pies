@@ -8,6 +8,7 @@ import chardet
 import time
 import itertools
 import platform
+from string import digits, ascii_lowercase, ascii_uppercase
 from subprocess import Popen, PIPE
 
 
@@ -24,11 +25,8 @@ else:
     YUBIKEY_PERSONALIZE = YUBIKEY_PERSONALIZE_WIN
 
 
-YK_KEY_INPUT = ''
 YK_KEY_INPUT = input('Input known characters, if any: ')
-
 ARRAY_RANGE = ARRAY_RANGE - len(str(YK_KEY_INPUT))
-
 
 
 TOTAL_KEYS = 10 ** ARRAY_RANGE
@@ -36,26 +34,20 @@ TESTED_KEYS = 0
 
 TIME_START = time.time()
 
-for a in itertools.product(range(10), repeat=ARRAY_RANGE):
+# alphanumeric
+chars = digits + ascii_uppercase + ascii_lowercase
+
+#for a in itertools.product(range(10), repeat=ARRAY_RANGE):
+for comb in itertools.product(chars, repeat=ARRAY_RANGE):
 
     TOTAL_KEYS -= 1
     TESTED_KEYS += 1
 
-    # known partial key inputted
-    if ARRAY_RANGE != 12:
-        # numeric
-        YK_KEY_GUESS = YK_KEY + YK_KEY_INPUT + ''.join(map(str, a))[::-1]
+    # numeric
+    #YK_KEY_GUESS = YK_KEY + YK_KEY_INPUT + ''.join(map(str, a))[::-1]
 
-        # alphanumeric
+    YK_KEY_GUESS = YK_KEY + YK_KEY_INPUT + ''.join(comb)[::-1]
 
-
-
-    # convert tuple to int
-    if ARRAY_RANGE == 12:
-        # key1, key2, key3, key4, key5, key6, key7, key8, key9, key10, key11, key12 = a
-        key12, key11, key10, key9, key8, key7, key6, key5, key4, key3, key2, key1 = a
-        YK_KEY_GUESS = YK_KEY + str(key1) + str(key2) + str(key3) + str(key4) + str(key5) + str(key6) + str(key7) + str(
-            key8) + str(key9) + str(key10) + str(key11) + str(key12)
 
     # call([YUBIKEY_PERSONALIZE, YK_PROFILE, YK_KEY_GUESS, YK_PROMPT, '-z'])
 
