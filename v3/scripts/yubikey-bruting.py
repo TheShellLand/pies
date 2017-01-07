@@ -29,13 +29,17 @@ YK_KEY_INPUT = input('Input known characters, if any: ')
 ARRAY_RANGE = ARRAY_RANGE - len(str(YK_KEY_INPUT))
 
 
-TOTAL_KEYS = 10 ** ARRAY_RANGE
-TESTED_KEYS = 0
+
 
 TIME_START = time.time()
 
 # alphanumeric
 chars = digits + ascii_uppercase + ascii_lowercase
+
+#TOTAL_KEYS = 10 ** ARRAY_RANGE
+TOTAL_KEYS = len(chars) ** ARRAY_RANGE
+
+TESTED_KEYS = 0
 
 #for a in itertools.product(range(10), repeat=ARRAY_RANGE):
 for comb in itertools.product(chars, repeat=ARRAY_RANGE):
