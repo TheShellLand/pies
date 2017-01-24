@@ -4,8 +4,11 @@
 
 from neo4j.v1 import GraphDatabase, basic_auth
 
-neo4j_server = '192.168.99.100'
-neo4j_server_port = '31895'
+# Neo4j Configuration
+neo4j_server = '10.100.0.107'
+neo4j_server_port = '31821'
+# neo4j_server = '192.168.99.100'
+# neo4j_server_port = '31895'
 neo4j_bolt_connection = 'bolt://{}:{}'.format(neo4j_server, neo4j_server_port)
 user = input('User (default: neo4j): ') or 'neo4j'
 password = input('Password for {}: '.format(user)) or 'portal'
@@ -46,7 +49,7 @@ def drop():
 
         try:
             session = driver.session()
-            session.run("match (n) delete n")
+            session.run("match (n) detach delete n")
             session.close()
             print('[*] Deleted.')
 
@@ -61,5 +64,5 @@ def drop():
 if __name__ == "__main__":
     # create_node()
     # search()
-    # drop()
+    drop()
     pass
