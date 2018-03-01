@@ -86,9 +86,6 @@ class Parser:
 
         coros = [asyncio.ensure_future(self.__starter(self.url))]
         futures = [self.loop.run_until_complete(c) for c in coros]
-
-        for tag in self.tags[url]:
-            print('{}\n\n'.format(tag))
     
     def parse_file(self, file):
         """Given a file, parse all <a> tags from it"""
@@ -103,9 +100,6 @@ class Parser:
 
         self.queues[file] = q
 
-        for tag in self.tags[self.file]:
-            print('{}\n\n'.format(tag))
-
     def tag(self, tag):
         """Return all tags for a search"""
 
@@ -115,7 +109,7 @@ class Parser:
             soup = queue.get()
 
             for a in soup.find_all('a'):
-                if tag:
+                if a:
                     print('{}'.format(a))
 
 if __name__ == "__main__":
@@ -125,5 +119,4 @@ if __name__ == "__main__":
     parse_this.parse_file(file)
 
     for tag in parse_this.tags[file]:
-        print('{}\n'.format(tag))
-
+        print('{}\n'.format(tag['href']))
